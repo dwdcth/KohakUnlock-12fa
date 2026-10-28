@@ -67,3 +67,12 @@
 - 解锁**易失**：重启清零；持久化未做（上游亦明示 NOT persistent，每次 boot 固件事务的长期稳定性无认证）
 - 本卡 selector 对 (0x6001,4) 为五采样实测——**selector 是每卡个体值**，换卡必须重新 selectors_only 采集
 - 上游 main 已删 Linux 路径：本 fork 即 Linux/Turing 的延续，重大改动前先打 tag
+
+## 七、持久化固化（2026-10-28 追加，所有者指令）
+
+GRUB_DEFAULT 已指向解锁条目——**每次 boot 自动重解锁**（gate v2）。双保险：
+1. **watchdog**：softdog 60s，gate 挂死则整机重启（防卡死锁死无头机）
+2. **失败标志防循环**：事务前在根分区写 `/kohak.bootflag=1`，完成（成功或安全拒绝）写回 0；
+   若 boot 因挂死被 watchdog/断电打断，标志留 1 → **下次 boot 自动跳过解锁**直接正常启动
+   （对齐上游"Never loop automatic retries"纪律）。恢复解锁：`sudo rm /kohak.bootflag` 再重启。
+注意：每次 boot 一次固件事务的长期稳定性上游未认证（自担）；解锁耗时 ~2s 对启动无可感影响。
