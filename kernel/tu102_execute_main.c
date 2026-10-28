@@ -203,7 +203,11 @@ static int __init tu102_execute_init(void)
 #ifdef KOH_TARGET_NVIDIA_TRIAL
     if (!pre_udev) return -EOPNOTSUPP;
 #endif
-    if (!execute || !target || strcmp(target, TX_TARGET)) return -EINVAL;
+    if (!execute || !target || strcmp(target, TX_TARGET)) {
+        pr_err("tu102_execute: param check fail execute=%d target=%s expected=%s\n",
+               execute, target ? target : "(null)", TX_TARGET);
+        return -EINVAL;
+    }
     if (pre_udev) {
         run.journal = filp_open("/run/kohak-tu102-trial/events.log",
                                O_WRONLY | O_APPEND | O_NOFOLLOW, 0);

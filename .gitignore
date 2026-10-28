@@ -20,3 +20,4 @@ Module.symvers
 *.log
 core
 core.*
+trial-build/

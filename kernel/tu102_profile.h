@@ -25,6 +25,24 @@
 #define TX_SELECTOR_PROFILE "nvidia-1e07-12a4-observed-pairs-v2"
 #define TX_NATIVE_DESC_WORDS {0x3c0201,0x9a10,0x9a10,0,0xdc,0,0x9600,0, \
                              0x300,0x9300,0x9600,0,0x410,0x9600,0x6618}
+#elif defined(TX_PROFILE_NVIDIA_1E07_12FA)
+/* This machine's card: TU102-300A subsystem 0x12fa, VBIOS 90.02.30.40.85.
+ * Layout identical to the historical Leadtek family except native SHA256
+ * and descriptor word 14; selectors pending pre-driver capture. */
+#define TX_NATIVE_SHA256 "794edf2193c662a956d6eca63b7223914c597f295e7c5c43300812346cb8ad56"
+#define TX_FWSEC_SIZE 0x9c20u
+#define TX_NATIVE_NAME "native-fwsec.bin"
+#define TX_NATIVE_DESC_OFF 0x3ed98u
+#define TX_NATIVE_IMAGE_OFF 0x3edd4u
+#define TX_NATIVE_INTERFACE_OFF 0xe0u
+#define TX_NATIVE_DMEM_OFF 0x9800u
+#define TX_NATIVE_MAPPER_OFF 0x390u
+#define TX_NATIVE_COMMAND_OFF 0x3e0u
+#define TX_INITIAL_SS0 0x6001u
+#define TX_INITIAL_SS1 4u
+#define TX_SELECTOR_PROFILE "nvidia-1e07-12fa-observed-pair-v1"
+#define TX_NATIVE_DESC_WORDS {0x3c0201,0x9c20,0x9c20,0,0xe0,0,0x9800,0, \
+                             0x400,0x9400,0x9800,0,0x420,0x9800,0x6628}
 #else
 #define TX_NATIVE_SHA256 "c6fa28fa2458f7bce2aeb422a2e57cce3885ff65c779e1077f682c23d097a635"
 #define TX_FWSEC_SIZE 0x9c20u

@@ -40,6 +40,13 @@ enum { PROM_DESC=0x33f200, PROM_IMAGE=0x33f23c, NATIVE_DMEM=0x9600,
 static const uint32_t observed_desc[15]={0x3c0201,0x9a10,0x9a10,0,0xdc,0,0x9600,0,
     0x300,0x9300,0x9600,0,0x410,0x9600,0x6618};
 static const uint32_t observed_pair[2]={0x500060,5};
+#elif defined(TX_PROFILE_NVIDIA_1E07_12FA)
+/* Same family as historical; only desc[14] differs (0x6618 vs 0x6638). */
+enum { PROM_DESC=0x33ed98, PROM_IMAGE=0x33edd4, NATIVE_DMEM=0x9800,
+       MAPPER_PATCH=0x9bbc, COMMAND_PATCH=0x9be0, MIN_BLOCKS=0x9a };
+static const uint32_t observed_desc[15]={0x3c0201,0x9c20,0x9c20,0,0xe0,0,0x9800,0,
+    0x400,0x9400,0x9800,0,0x420,0x9800,0x6628};
+static const uint32_t observed_pair[2]={0x6001,4};
 #else
 enum { PROM_DESC=0x33ed98, PROM_IMAGE=0x33edd4, NATIVE_DMEM=0x9800,
        MAPPER_PATCH=0x9bbc, COMMAND_PATCH=0x9be0, MIN_BLOCKS=0x9a };

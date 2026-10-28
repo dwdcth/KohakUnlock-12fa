@@ -20,6 +20,12 @@ MODULE_PARM_DESC(selectors_only, "Five read-only selector pairs over one second;
 #define DIAG_SUBVENDOR 0x10de
 #define DIAG_SUBDEVICE 0x12a4
 MODULE_PARM_DESC(target, "Explicit 0000:01:00.0; NVIDIA 1e07/12a4 diagnostic only; unbound card");
+#elif defined(KOH_DIAG_NVIDIA_1E07_12FA)
+/* Same TU102-300A layout, subsystem 0x12fa variant (this machine's card). */
+#define DIAG_DEVICE 0x1e07
+#define DIAG_SUBVENDOR 0x10de
+#define DIAG_SUBDEVICE 0x12fa
+MODULE_PARM_DESC(target, "Explicit 0000:69:00.0; NVIDIA 1e07/12fa diagnostic only; unbound card");
 #else
 #define DIAG_DEVICE 0x1e04
 #define DIAG_SUBVENDOR 0x107d
@@ -31,7 +37,7 @@ static struct debugfs_blob_wrapper rom_blob;
 static const u32 offsets[] = {
     0x000000, 0x100ce0, 0x625f04,
     0x1fa824, 0x1fa828, 0x409650, 0x409664, 0x40966c, 0x110100, 0x840100,
-#ifdef KOH_DIAG_NVIDIA_1E07_12A4
+#if defined(KOH_DIAG_NVIDIA_1E07_12A4) || defined(KOH_DIAG_NVIDIA_1E07_12FA)
     0x118234, 0x409660, 0x409668,
 #endif
 };
@@ -48,6 +54,9 @@ static int __init tu102_diag_init(void)
 #ifdef KOH_DIAG_NVIDIA_1E07_12A4
     if (!strcmp(target, "0000:01:00.0"))
         bus = 0x01;
+#elif defined(KOH_DIAG_NVIDIA_1E07_12FA)
+    if (!strcmp(target, "0000:69:00.0"))
+        bus = 0x69;
 #else
     if (!strcmp(target, "0000:42:00.0"))
         bus = 0x42;

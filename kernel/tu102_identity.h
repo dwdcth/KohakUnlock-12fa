@@ -13,6 +13,16 @@
 #define TX_DEVICE_ID 0x1e07
 #define TX_SUBVENDOR_ID 0x10de
 #define TX_SUBDEVICE_ID 0x12a4
+#elif defined(TX_PROFILE_NVIDIA_1E07_12FA)
+#if defined(__KERNEL__) && (!defined(KOH_TARGET_NVIDIA_TRIAL) || !defined(KOH_UNLOCK_REVIEWED_PROFILE))
+#error "The NVIDIA 12fa candidate requires an explicit target trial build"
+#endif
+#define TX_IDENTITY_PROFILE "nvidia-1e07-12fa-trial"
+#define TX_TARGET "0000:69:00.0"
+#define TX_TARGET_BUS 0x69
+#define TX_DEVICE_ID 0x1e07
+#define TX_SUBVENDOR_ID 0x10de
+#define TX_SUBDEVICE_ID 0x12fa
 #else
 #define TX_IDENTITY_PROFILE "historical"
 #define TX_TARGET "0000:42:00.0"
