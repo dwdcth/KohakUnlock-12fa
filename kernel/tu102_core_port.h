@@ -236,6 +236,10 @@ static int tx_observed_pair(uint32_t ss0,uint32_t ss1) {
     /* Exact observed tuples per profile; never mask unknown fields. */
 #ifdef TX_PROFILE_NVIDIA_1E07_12A4
     return (ss0==TX_INITIAL_SS0 || ss0==TX_INITIAL_SS0_ALT) && ss1==TX_INITIAL_SS1;
+#elif defined(TX_PROFILE_NVIDIA_1E07_12FA)
+    /* Two exact tuples only: observed cold pair (0x6001,4), or the
+     * zeroed warm-reboot state (0,0). No cross combinations. */
+    return (ss0==TX_INITIAL_SS0 && ss1==TX_INITIAL_SS1) || (ss0==0u && ss1==0u);
 #else
     return ss0==TX_INITIAL_SS0 && ss1==TX_INITIAL_SS1;
 #endif
